@@ -18,22 +18,30 @@
       align-items: center;
     }
 
+    /* Barra de pesquisa */
+    #searchBar {
+      width: 50%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border-radius: 5px;
+      border: none;
+      text-align: center;
+      font-size: 16px;
+    }
+
     /* Tabela estilizada */
     table {
       width: 90%;
-      max-width: 1000px;
       border-collapse: collapse;
-      margin-top: 20px;
       background: rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(5px);
       border-radius: 10px;
-      overflow: hidden;
     }
 
     th,
     td {
       border: 1px solid rgba(255, 255, 255, 0.2);
-      padding: 12px;
+      padding: 1s2px;
       text-align: left;
     }
 
@@ -41,54 +49,37 @@
       background-color: rgba(255, 255, 255, 0.2);
     }
 
-    /* Botões com animação */
+    /* Botões */
     button {
       cursor: pointer;
       padding: 8px 15px;
-      margin: 5px;
       border: none;
       border-radius: 5px;
       transition: all 0.3s ease-in-out;
       font-weight: bold;
+      margin-bottom: 30px;
     }
 
-    /* Botão de adicionar */
     .add-btn {
       background: #18682b;
       color: white;
       font-size: 16px;
       padding: 10px 20px;
-      border-radius: 10px;
+      border-radius: 100Spx;
+      margin-bottom: 50px;
     }
 
-    .add-btn:hover {
-      background: #10e241;
-      transform: scale(1.1);
-    }
-
-    /* Botão de editar */
     .edit-btn {
-      background: #696969;
-      color: rgb(255, 255, 255);
+      background: #463c3c;
+      color: white;
     }
 
-    .edit-btn:hover {
-      background: #000000;
-      transform: translateY(-3px);
-    }
-
-    /* Botão de excluir */
     .delete-btn {
       background: #be3744;
       color: white;
     }
 
-    .delete-btn:hover {
-      background: #a71d2a;
-      transform: translateY(-3px);
-    }
-
-    /* Estilo dos modais */
+    /* Modal */
     .modal {
       display: none;
       position: fixed;
@@ -100,8 +91,6 @@
       background-color: rgba(0, 0, 0, 0.5);
       justify-content: center;
       align-items: center;
-      opacity: 0;
-      transition: opacity 0.3s ease-in-out;
     }
 
     .modal-content {
@@ -110,34 +99,111 @@
       border-radius: 10px;
       width: 300px;
       text-align: center;
-      box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.3);
-      transform: scale(0.8);
-      transition: transform 0.3s ease-in-out;
     }
 
-    /* Efeito para exibir modal */
-    .modal.show {
-      display: flex;
-      opacity: 1;
+    /* Mar e barco */
+    .ocean {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      height: 50px;
+      background: rgba(255, 255, 255, 0.3);
     }
 
-    .modal.show .modal-content {
-      transform: scale(1);
+    .boat {
+      position: absolute;
+      width: 80px;
+      height: 10px;
+      background: white;
+      border-radius: 10px;
+      bottom: 20px;
+      left: -100px;
+      animation: moveBoat 12s linear infinite;
     }
 
-    /* Inputs estilizados */
-    input {
+    /* Botão de adicionar */
+    .add-btn {
+      background: #18682b;
+      color: white;
+      font-size: 16px;
+      padding: 10px 20px;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .add-btn:hover {
+      background: #10e241;
+      transform: scale(1.1);
+    }
+
+    /* Botão de editar */
+    .edit-btn {
+      background: #696969;
+      color: white;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .edit-btn:hover {
+      background: #000000;
+      transform: translateY(-3px);
+    }
+
+    /* Botão de excluir */
+    .delete-btn {
+      background: #be3744;
+      color: white;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .delete-btn:hover {
+      background: #a71d2a;
+      transform: translateY(-3px);
+    }
+
+    table {
       width: 90%;
-      padding: 8px;
-      margin-top: 8px;
-      border: none;
-      border-radius: 5px;
-      text-align: center;
+      max-width: 10000px;
+      border-collapse: collapse;
+      margin-top: 20px;
+      background: rgba(221, 221, 221, 0.1);
+      backdrop-filter: blur(5px);
+      border-radius: 10px;
+      height: 650px;
+      /* Define a altura máxima da tabela */
+      overflow-y: auto;
+      /* Permite o scroll vertical */
+      display: block;
+      /* Faz a tabela ser um bloco e permitir o scroll */
+    }
+
+    .sail {
+      position: absolute;
+      left: 50%;
+      bottom: 100%;
+      width: 0;
+      height: 0;
+      border-left: 20px solid transparent;
+      border-right: 20px solid transparent;
+      border-bottom: 40px solid white;
+      transform: translateX(-50%);
+    }
+
+    @keyframes moveBoat {
+      0% {
+        left: -100px;
+      }
+
+      100% {
+        left: 100vw;
+      }
     }
   </style>
 </head>
 
 <body>
+
+  <input type="text" id="searchBar" onkeyup="filterTable()" placeholder="Pesquisar...">
 
   <button class="add-btn" onclick="openAddModal()">+ Adicionar</button>
 
@@ -175,7 +241,7 @@
     </tbody>
   </table>
 
-  <!-- Mod de Confirmação -->
+  <!-- Modal de Confirmação -->
   <div id="deleteModal" class="modal">
     <div class="modal-content">
       <p>Tem certeza que deseja excluir este item?</p>
@@ -194,11 +260,27 @@
       <input type="text" id="sector" placeholder="Setor"><br>
       <button onclick="addRow()">Adicionar</button>
       <button onclick="closeAddModal()">Fechar</button>
+
     </div>
+  </div>
+
+  <!-- Elemento do mar -->
+  <div class="ocean"></div>
+
+  <!-- Barco -->
+  <div class="boat">
+    <div class="sail"></div>
   </div>
 
   <script>
     let rowToDelete = null;
+
+    function filterTable() {
+      let input = document.getElementById("searchBar").value.toLowerCase();
+      document.querySelectorAll("tbody tr").forEach(row => {
+        row.style.display = row.innerText.toLowerCase().includes(input) ? "" : "none";
+      });
+    }
 
     function editRow(button) {
       alert("Funcionalidade de edição ainda não implementada.");
@@ -206,7 +288,7 @@
 
     function confirmDelete(button) {
       rowToDelete = button.closest("tr");
-      document.getElementById("deleteModal").classList.add("show");
+      document.getElementById("deleteModal").style.display = "flex";
     }
 
     function deleteRow() {
@@ -217,15 +299,15 @@
     }
 
     function closeDeleteModal() {
-      document.getElementById("deleteModal").classList.remove("show");
+      document.getElementById("deleteModal").style.display = "none";
     }
 
     function openAddModal() {
-      document.getElementById("addModal").classList.add("show");
+      document.getElementById("addModal").style.display = "flex";
     }
 
     function closeAddModal() {
-      document.getElementById("addModal").classList.remove("show");
+      document.getElementById("addModal").style.display = "none";
     }
 
     function addRow() {
@@ -237,112 +319,15 @@
 
       if (userName && equipmentType && patrimony && sector) {
         let newRow = table.insertRow();
-        newRow.innerHTML = `
-                    <td>${userName}</td>
-                    <td>${equipmentType}</td>
-                    <td>${patrimony}</td>
-                    <td>${sector}</td>
-                    <td>
-                        <button class="edit-btn" onclick="editRow(this)">Editar</button>
-                        <button class="delete-btn" onclick="confirmDelete(this)">Excluir</button>
-                    </td>
-                `;
+        newRow.innerHTML = `<td>${userName}</td><td>${equipmentType}</td><td>${patrimony}</td><td>${sector}</td>
+                            <td><button class="edit-btn" onclick="editRow(this)">Editar</button>
+                            <button class="delete-btn" onclick="confirmDelete(this)">Excluir</button></td>`;
         closeAddModal();
       } else {
         alert("Preencha todos os campos.");
       }
     }
   </script>
-
-</body>
-
-</html>
-<!DOCTYPE html>
-<html lang="pt">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Animação de Barco</title>
-  <style>
-    /* Criando um mar com ondas */
-    .ocean {
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-      height: 50px;
-      background: rgba(0, 0, 0, 0.3);
-      animation: wave 10s infinite linear alternate;
-    }
-
-    /* Efeito de ondas no mar */
-    @keyframes wave {
-      0% {
-        transform: translateY(0px);
-      }
-
-      100% {
-        transform: translateY(5px);
-      }
-    }
-
-    /* Barco */
-    .boat {
-      position: absolute;
-      width: 80px;
-      height: 10px;
-      background: rgb(255, 255, 255);
-      border-radius: 1S0px;
-      bottom: 20px;
-      left: -100px;
-      /* Começa fora da tela */
-      animation: moveBoat 10s linear infinite;
-    }
-
-    /* Vela do barco */
-    .sail {
-      position: absolute;
-      left: 50%;
-      bottom: 100%;
-      width: 0;
-      height: 0;
-      border-left: 20px solid transparent;
-      border-right: 20px solid transparent;
-      border-bottom: 40px solid rgb(255, 255, 255);
-      transform: translateX(-50%);
-    }
-
-    /* Movimento do barco */
-    @keyframes moveBoat {
-      0% {
-        left: -100px;
-        transform: rotate(0deg);
-      }
-
-      50% {
-        transform: rotate(2deg);
-      }
-
-      /* Pequeno balanço */
-      100% {
-        left: 100vw;
-        transform: rotate(0deg);
-      }
-
-      /* Vai para o outro lado */
-    }
-  </style>
-</head>
-
-<body>
-
-  <!-- Elemento do mar -->
-  <div class="ocean"></div>
-
-  <!-- Barco -->
-  <div class="boat">
-    <div class="sail"></div>
-  </div>
 
 </body>
 
