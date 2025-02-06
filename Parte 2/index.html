@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tabela de Equipamentos</title>
+  <style>
+    /* Fundo com degradê */
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #000000, #5a5a5a);
+      color: white;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Tabela estilizada */
+    table {
+      width: 90%;
+      max-width: 1000px;
+      border-collapse: collapse;
+      margin-top: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(5px);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    th,
+    td {
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 12px;
+      text-align: left;
+    }
+
+    th {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Botões com animação */
+    button {
+      cursor: pointer;
+      padding: 8px 15px;
+      margin: 5px;
+      border: none;
+      border-radius: 5px;
+      transition: all 0.3s ease-in-out;
+      font-weight: bold;
+    }
+
+    /* Botão de adicionar */
+    .add-btn {
+      background: #18682b;
+      color: white;
+      font-size: 16px;
+      padding: 10px 20px;
+      border-radius: 10px;
+    }
+
+    .add-btn:hover {
+      background: #10e241;
+      transform: scale(1.1);
+    }
+
+    /* Botão de editar */
+    .edit-btn {
+      background: #696969;
+      color: rgb(255, 255, 255);
+    }
+
+    .edit-btn:hover {
+      background: #000000;
+      transform: translateY(-3px);
+    }
+
+    /* Botão de excluir */
+    .delete-btn {
+      background: #be3744;
+      color: white;
+    }
+
+    .delete-btn:hover {
+      background: #a71d2a;
+      transform: translateY(-3px);
+    }
+
+    /* Estilo dos modais */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+    }
+
+    .modal-content {
+      background-color: #2c2c2c;
+      padding: 20px;
+      border-radius: 10px;
+      width: 300px;
+      text-align: center;
+      box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.3);
+      transform: scale(0.8);
+      transition: transform 0.3s ease-in-out;
+    }
+
+    /* Efeito para exibir modal */
+    .modal.show {
+      display: flex;
+      opacity: 1;
+    }
+
+    .modal.show .modal-content {
+      transform: scale(1);
+    }
+
+    /* Inputs estilizados */
+    input {
+      width: 90%;
+      padding: 8px;
+      margin-top: 8px;
+      border: none;
+      border-radius: 5px;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+
+  <button class="add-btn" onclick="openAddModal()">+ Adicionar</button>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Usuário</th>
+        <th>Tipo de Equipamento</th>
+        <th>Patrimônio</th>
+        <th>Setor</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Pedro Rodrigues</td>
+        <td>DESKTOP</td>
+        <td>001442</td>
+        <td>TPS</td>
+        <td>
+          <button class="edit-btn" onclick="editRow(this)">Editar</button>
+          <button class="delete-btn" onclick="confirmDelete(this)">Excluir</button>
+        </td>
+      </tr>
+      <tr>
+        <td>Lucas Spizziri</td>
+        <td>NOTEBOOK</td>
+        <td>001233</td>
+        <td>DHO</td>
+        <td>
+          <button class="edit-btn" onclick="editRow(this)">Editar</button>
+          <button class="delete-btn" onclick="confirmDelete(this)">Excluir</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Mod de Confirmação -->
+  <div id="deleteModal" class="modal">
+    <div class="modal-content">
+      <p>Tem certeza que deseja excluir este item?</p>
+      <button onclick="deleteRow()">Sim</button>
+      <button onclick="closeDeleteModal()">Cancelar</button>
+    </div>
+  </div>
+
+  <!-- Modal de Adição -->
+  <div id="addModal" class="modal">
+    <div class="modal-content">
+      <h3>Adicionar Equipamento</h3>
+      <input type="text" id="userName" placeholder="Nome do Usuário"><br>
+      <input type="text" id="equipmentType" placeholder="Tipo de Equipamento"><br>
+      <input type="text" id="patrimony" placeholder="Patrimônio"><br>
+      <input type="text" id="sector" placeholder="Setor"><br>
+      <button onclick="addRow()">Adicionar</button>
+      <button onclick="closeAddModal()">Fechar</button>
+    </div>
+  </div>
+
+  <script>
+    let rowToDelete = null;
+
+    function editRow(button) {
+      alert("Funcionalidade de edição ainda não implementada.");
+    }
+
+    function confirmDelete(button) {
+      rowToDelete = button.closest("tr");
+      document.getElementById("deleteModal").classList.add("show");
+    }
+
+    function deleteRow() {
+      if (rowToDelete) {
+        rowToDelete.remove();
+        closeDeleteModal();
+      }
+    }
+
+    function closeDeleteModal() {
+      document.getElementById("deleteModal").classList.remove("show");
+    }
+
+    function openAddModal() {
+      document.getElementById("addModal").classList.add("show");
+    }
+
+    function closeAddModal() {
+      document.getElementById("addModal").classList.remove("show");
+    }
+
+    function addRow() {
+      let table = document.querySelector("table tbody");
+      let userName = document.getElementById("userName").value;
+      let equipmentType = document.getElementById("equipmentType").value;
+      let patrimony = document.getElementById("patrimony").value;
+      let sector = document.getElementById("sector").value;
+
+      if (userName && equipmentType && patrimony && sector) {
+        let newRow = table.insertRow();
+        newRow.innerHTML = `
+                    <td>${userName}</td>
+                    <td>${equipmentType}</td>
+                    <td>${patrimony}</td>
+                    <td>${sector}</td>
+                    <td>
+                        <button class="edit-btn" onclick="editRow(this)">Editar</button>
+                        <button class="delete-btn" onclick="confirmDelete(this)">Excluir</button>
+                    </td>
+                `;
+        closeAddModal();
+      } else {
+        alert("Preencha todos os campos.");
+      }
+    }
+  </script>
+
+</body>
+
+</html>
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Animação de Barco</title>
+  <style>
+    /* Criando um mar com ondas */
+    .ocean {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 50px;
+      background: rgba(0, 0, 0, 0.3);
+      animation: wave 10s infinite linear alternate;
+    }
+
+    /* Efeito de ondas no mar */
+    @keyframes wave {
+      0% {
+        transform: translateY(0px);
+      }
+
+      100% {
+        transform: translateY(5px);
+      }
+    }
+
+    /* Barco */
+    .boat {
+      position: absolute;
+      width: 80px;
+      height: 10px;
+      background: rgb(255, 255, 255);
+      border-radius: 1S0px;
+      bottom: 20px;
+      left: -100px;
+      /* Começa fora da tela */
+      animation: moveBoat 10s linear infinite;
+    }
+
+    /* Vela do barco */
+    .sail {
+      position: absolute;
+      left: 50%;
+      bottom: 100%;
+      width: 0;
+      height: 0;
+      border-left: 20px solid transparent;
+      border-right: 20px solid transparent;
+      border-bottom: 40px solid rgb(255, 255, 255);
+      transform: translateX(-50%);
+    }
+
+    /* Movimento do barco */
+    @keyframes moveBoat {
+      0% {
+        left: -100px;
+        transform: rotate(0deg);
+      }
+
+      50% {
+        transform: rotate(2deg);
+      }
+
+      /* Pequeno balanço */
+      100% {
+        left: 100vw;
+        transform: rotate(0deg);
+      }
+
+      /* Vai para o outro lado */
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Elemento do mar -->
+  <div class="ocean"></div>
+
+  <!-- Barco -->
+  <div class="boat">
+    <div class="sail"></div>
+  </div>
+
+</body>
+
+</html>
