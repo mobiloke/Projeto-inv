@@ -36,6 +36,7 @@
       background: rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(5px);
       border-radius: 10px;
+
     }
 
     th,
@@ -137,6 +138,8 @@
       transform: scale(1.1);
     }
 
+
+
     /* Botão de editar */
     .edit-btn {
       background: #696969;
@@ -161,20 +164,40 @@
       transform: translateY(-3px);
     }
 
+    .table-container {
+      width: 100%;
+      height: 380px;
+      text-align: right;
+      /* Ajuste conforme necessário */
+      overflow: block;
+
+      /* Mantém o scroll quando necessário */
+    }
+
+
+    th,
+    td {
+      padding: 30px;
+      border: 1px solid #ddd;
+      text-align: center;
+    }
+
     table {
-      width: 90%;
-      max-width: 10000px;
+      width: 900px;
+      text-align: center;
+      max-width: 985px;
       border-collapse: collapse;
       margin-top: 20px;
-      background: rgba(221, 221, 221, 0.1);
+      background: rgba(255, 250, 255, 0.096);
       backdrop-filter: blur(5px);
       border-radius: 10px;
-      height: 650px;
+      height: 670px;
       /* Define a altura máxima da tabela */
       overflow-y: auto;
       /* Permite o scroll vertical */
       display: block;
       /* Faz a tabela ser um bloco e permitir o scroll */
+
     }
 
     .sail {
