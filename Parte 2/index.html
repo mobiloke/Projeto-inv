@@ -355,3 +355,49 @@
 </body>
 
 </html>
+
+<!-- Modal de Edição -->
+<div id="editModal" class="modal">
+  <div class="modal-content">
+    <h3>Editar Equipamento</h3>
+    <input type="text" id="editUserName" placeholder="Nome do Usuário"><br>
+    <input type="text" id="editEquipmentType" placeholder="Tipo de Equipamento"><br>
+    <input type="text" id="editPatrimony" placeholder="Patrimônio"><br>
+    <input type="text" id="editSector" placeholder="Setor"><br>
+    <button onclick="saveEdit()">Salvar</button>
+    <button onclick="closeEditModal()">Cancelar</button>
+  </div>
+</div>
+
+<script>
+  let rowToEdit = null;
+
+  function editRow(button) {
+    rowToEdit = button.closest("tr");
+    let cells = rowToEdit.getElementsByTagName("td");
+
+    document.getElementById("editUserName").value = cells[0].innerText;
+    document.getElementById("editEquipmentType").value = cells[1].innerText;
+    document.getElementById("editPatrimony").value = cells[2].innerText;
+    document.getElementById("editSector").value = cells[3].innerText;
+
+    document.getElementById("editModal").style.display = "flex";
+  }
+
+  function saveEdit() {
+    if (rowToEdit) {
+      let cells = rowToEdit.getElementsByTagName("td");
+
+      cells[0].innerText = document.getElementById("editUserName").value;
+      cells[1].innerText = document.getElementById("editEquipmentType").value;
+      cells[2].innerText = document.getElementById("editPatrimony").value;
+      cells[3].innerText = document.getElementById("editSector").value;
+
+      closeEditModal();
+    }
+  }
+
+  function closeEditModal() {
+    document.getElementById("editModal").style.display = "none";
+  }
+</script>
