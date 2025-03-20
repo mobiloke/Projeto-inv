@@ -31,3 +31,57 @@ body {
     transform: rotate(360deg);
   }
 }
+
+
+body {
+  background: linear-gradient(to bottom, #6b6868, #000000);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.circle {
+  position: absolute;
+  background: radial-gradient(circle, #727070, #000000);
+  border-radius: 50%;
+  opacity: 0.8;
+}
+
+.top-left {
+  width: 690px;
+  height: 400px;
+  top: -190px;
+  left: -50px;
+}
+
+.top-right {
+  width: 600px;
+  height: 445px;
+  top: -190px;
+  right: -190px;
+}
+
+.bottom-left {
+  width: 555px;
+  height: 499px;
+  bottom: -190px;
+  left: -100px;
+}
+
+.bottom-right {
+  width: 555px;
+  height: 450px;
+  bottom: -50px;
+  right: -30px;
+}
+
+.content {
+  color: rgb(165, 165, 165);
+  text-align: center;
+  font-size: 24px;
+  font-family: Arial, sans-serif;
+  z-index: 2;
+}
